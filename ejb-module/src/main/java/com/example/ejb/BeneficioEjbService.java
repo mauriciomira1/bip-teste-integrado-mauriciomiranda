@@ -5,6 +5,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.math.BigDecimal;
 
+import com.example.ejb.entities.Beneficio;
+
 @Stateless
 public class BeneficioEjbService {
 
@@ -13,7 +15,7 @@ public class BeneficioEjbService {
 
     public void transfer(Long fromId, Long toId, BigDecimal amount) {
         Beneficio from = em.find(Beneficio.class, fromId);
-        Beneficio to   = em.find(Beneficio.class, toId);
+        Beneficio to = em.find(Beneficio.class, toId);
 
         // BUG: sem validações, sem locking, pode gerar saldo negativo e lost update
         from.setValor(from.getValor().subtract(amount));
